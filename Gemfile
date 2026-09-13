@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gem "rails", "~> 8.0.5"
 # Rails 8.0.5.1 passes JSON options as keywords; json 3.0.1 no longer
 # accepts that call shape. Keep the compatible 2.x API until Rails is upgraded.
-gem "json", "~> 2.10"
+gem "json", "~> 3.0"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
