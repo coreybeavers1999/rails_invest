@@ -1,0 +1,12 @@
+<%# locals: (flash_type: 'notice' | 'alert', message: String) %>
+
+<div
+  class="alert alert-primary alert-dismissable"
+  role="alert"
+  data-controller="flash"
+  data-action="animationend->flash#dismiss"
+>
+  <div class="d-flex justify-content-between align-items-center">
+    <%= message %>
+  </div>
+</div>

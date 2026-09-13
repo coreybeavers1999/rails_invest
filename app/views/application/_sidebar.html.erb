@@ -1,0 +1,28 @@
+<div
+  class="d-flex flex-column h-100 text-white bg-dark"
+  style="min-width: 300px; max-width: 300px;"
+>
+  <div class="container p-2 flex-fill">
+    <h3 class="text-center mt-2">The Sidebar</h3>
+    <hr />
+
+    <!-- List of routes -->
+    <ul class="nav nav-pills flex-column mb-auto">
+      <% sidebar_items.each do |item| %>
+        <li class="nav-item active">
+
+          <!-- Individual link-->
+          <a href="<%= item[:path] %>" class="nav-link text-white <%= 'active' if item[:selected] %>">
+            <i class="<%= item[:icon] %>" style="margin-right: 10px;"></i>
+            <%= item[:label] %>
+          </a>
+
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="container mb-2">
+    <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-warning w-100" %>
+  </div>
+</div>
