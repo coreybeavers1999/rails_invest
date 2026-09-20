@@ -7,3 +7,14 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# Create test user
+User
+  .create_with(password: "password", password_confirmation: "password")
+  .find_or_create_by!(email: "test@example.com")
+
+# Create initial stocks economy record
+Stocks::Economy.find_or_create_by(id: 1)
+
+# Load companies
+require_relative "seeds/stocks/companies"

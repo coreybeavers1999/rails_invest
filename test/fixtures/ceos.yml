@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  skill: 1
+  controversial: 1
+  retires_at: 2026-09-16
+
+two:
+  name: MyString
+  skill: 1
+  controversial: 1
+  retires_at: 2026-09-16

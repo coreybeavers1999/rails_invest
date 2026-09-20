@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  industry: one
+  value: 9.99
+  shares_issued: 1
+  direction: 1
+  bankrupts_at: 9.99
+  fires_ceo_at: 1
+  ceo_cumulative_direction_delta: 1
+
+two:
+  name: MyString
+  description: MyText
+  industry: two
+  value: 9.99
+  shares_issued: 1
+  direction: 1
+  bankrupts_at: 9.99
+  fires_ceo_at: 1
+  ceo_cumulative_direction_delta: 1
