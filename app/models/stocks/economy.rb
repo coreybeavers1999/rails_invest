@@ -12,12 +12,17 @@ class Stocks::Economy < ApplicationRecord
   end
 
   # Display the historical value of economy between two dates
+  # Returns Array<{dateIsoString, economyHealth}>
   def self.history(from, to)
     starting_step = self.date_to_step(from)
     final_step = self.date_to_step(to)
 
     # Query the noise values between the dates and normalize them for economy values
-    NoiseService.step_range(SEED, starting_step, final_step).map { |i| self.normalize_noise(i) }
+    values = NoiseService.step_range(SEED, starting_step, final_step).map { |i| self.normalize_noise(i) }
+    date_strings = (from..to).map(&:iso8601)
+
+    # Zip up iso strings with health value
+    date_strings.zip(values)
   end
 
   private

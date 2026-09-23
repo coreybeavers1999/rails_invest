@@ -5,6 +5,17 @@ Rails.application.routes.draw do
 
   authenticated :user do
     root to: "home#index", as: :user_root
+
+    # Stocks
+    resources :stocks do
+      collection do
+        get :economy_history
+      end
+
+      member do
+
+      end
+    end
   end
 
   root "welcome#index"

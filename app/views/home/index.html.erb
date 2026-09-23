@@ -1,12 +1,23 @@
 <h1>Home#index</h1>
 <%= @message %>
 
-<div class="container mt-3" id="content-container">
-  <div
-    class="testing"
-    data-controller="test"
-    data-action="animationend->test#duplicate"
-  >
-    This is a test message inside the testing div.
-  </div>
+<% history_url = economy_history_stocks_path(from: 29.days.ago.to_date.iso8601, to: Date.current.iso8601) %>
+
+<!-- Small Scale -->
+<div data-controller="chart" data-chart-url-value="<%= history_url %>">
+  <!-- Chart Element Container -->
+  <div data-chart-target="chart" style="width: 100%; height: 400px;"></div>
+
+  <!-- Status Element -->
+  <div data-chart-target="status">Loading...</div>
+</div>
+
+<% history_url = economy_history_stocks_path(from: 264.days.ago.to_date.iso8601, to: Date.current.iso8601) %>
+<!-- Large Scale -->
+<div data-controller="chart" data-chart-url-value="<%= history_url %>">
+  <!-- Chart Element Container -->
+  <div data-chart-target="chart" style="width: 100%; height: 400px;"></div>
+
+  <!-- Status Element -->
+  <div data-chart-target="status">Loading...</div>
 </div>
