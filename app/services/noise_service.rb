@@ -3,10 +3,10 @@
 require "perlin"
 
 class NoiseService
-  LOCKED_Y = 1.1
-  PERSISTENCE = 0.5
-  OCTAVES = 4
-  SCALE = 0.1
+  LOCKED_Y = 2.1
+  PERSISTENCE = 0.1
+  OCTAVES = 1
+  SCALE = 0.05
 
   # Returns a single float value at the given step
   # @return [Float] normalized between 0.0 - 1.0
@@ -21,7 +21,7 @@ class NoiseService
   def self.step_range(seed, step_start, step_end)
     gen = Perlin::Generator.new(seed, PERSISTENCE, OCTAVES)
     width = step_end - step_start + 1
-    noise = gen.chunk(step_start, LOCKED_Y, width, 1, SCALE)
+    noise = gen.chunk(step_start * SCALE, LOCKED_Y, width, 1, SCALE)
     noise.flatten.map { |i| normalize(i) }
   end
 

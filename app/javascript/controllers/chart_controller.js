@@ -5,7 +5,8 @@ import * as echarts from "echarts"
 export default class extends Controller {
   static targets = ["chart", "status"]
   static values = {
-    url: String
+    url: String,
+    title: String
   }
   connect() {
     this.chart = echarts.init(this.chartTarget)
@@ -47,7 +48,7 @@ export default class extends Controller {
 
       // Initialize chart with options
       this.chart.setOption({
-        title: { text: "Economy History - Last 30 Days" },
+        title: { text: this.titleValue },
         tooltip: { trigger: "axis" },
         xAxis: { type: "time" },
         yAxis: { type: "value", min: 0, max: 1000 },
