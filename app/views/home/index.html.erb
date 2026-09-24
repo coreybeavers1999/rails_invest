@@ -1,12 +1,13 @@
 <h1>Home#index</h1>
 <%= @message %>
 
-<!-- 30 Days -->
-<% history_url = economy_history_stocks_path(from: 29.days.ago.to_date.iso8601, to: Date.current.iso8601) %>
+<!-- 7 Days -->
+<% history_url = economy_history_stocks_path(from: 6.days.ago.to_date.iso8601, to: Date.current.iso8601) %>
 <div
   data-controller="chart"
   data-chart-url-value="<%= history_url %>"
-  data-chart-title-value="Economy History - Last 30 Days"
+  data-chart-title-value="Economy History - Last 7 Days"
+  data-chart-show-symbol-value="true"
 >
   <!-- Chart Element Container -->
   <div data-chart-target="chart" style="width: 100%; height: 400px;"></div>
@@ -14,50 +15,9 @@
   <!-- Status Element -->
   <div data-chart-target="status">Loading...</div>
 </div>
-
-<% history_url = economy_history_stocks_path(from: 29.days.ago.to_date.iso8601, to: Date.current.iso8601) %>
-<div
-  data-controller="chart"
-  data-chart-url-value="<%= history_url %>"
-  data-chart-title-value="Economy History - Last 30 Days"
->
-  <!-- Chart Element Container -->
-  <div data-chart-target="chart" style="width: 100%; height: 400px;"></div>
-
-  <!-- Status Element -->
-  <div data-chart-target="status">Loading...</div>
-</div>
-
-<% history_url = economy_history_stocks_path(from: 29.days.ago.to_date.iso8601, to: Date.current.iso8601) %>
-<div
-  data-controller="chart"
-  data-chart-url-value="<%= history_url %>"
-  data-chart-title-value="Economy History - Last 30 Days"
->
-  <!-- Chart Element Container -->
-  <div data-chart-target="chart" style="width: 100%; height: 400px;"></div>
-
-  <!-- Status Element -->
-  <div data-chart-target="status">Loading...</div>
-</div>
-
-<!-- 90 days -->
-<% history_url = economy_history_stocks_path(from: 89.days.ago.to_date.iso8601, to: Date.current.iso8601) %>
-<div
-  data-controller="chart"
-  data-chart-url-value="<%= history_url %>"
-  data-chart-title-value="Economy History - Last 90 Days"
->
-  <!-- Chart Element Container -->
-  <div data-chart-target="chart" style="width: 100%; height: 400px;"></div>
-
-  <!-- Status Element -->
-  <div data-chart-target="status">Loading...</div>
-</div>
-
 
 <!-- Year -->
-<% history_url = economy_history_stocks_path(from: 264.days.ago.to_date.iso8601, to: Date.current.iso8601) %>
+<% history_url = economy_history_stocks_path(from: 364.days.ago.to_date.iso8601, to: Date.current.iso8601) %>
 <div
   data-controller="chart"
   data-chart-url-value="<%= history_url %>"

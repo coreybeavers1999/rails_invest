@@ -6,6 +6,7 @@ export default class extends Controller {
   static targets = ["chart", "status"]
   static values = {
     url: String,
+    showSymbol: Boolean,
     title: String
   }
   connect() {
@@ -45,11 +46,25 @@ export default class extends Controller {
 
       // Everything went well, let's build the chart
       const points = await res.json()
+      console.log(points)
 
       // Initialize chart with options
       this.chart.setOption({
         title: { text: this.titleValue },
-        tooltip: { trigger: "axis" },
+        tooltip: {
+          trigger: "axis",
+          formatter: (params) => {
+            const [isoDate, health] = params[0].value
+            const date = new Intl.DateTimeFormat("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+              timeZone: "UTC"
+            }).format(new Date(isoDate))
+
+            return `${date}<br/>Health: ${health}`
+          }
+        },
         xAxis: { type: "time" },
         yAxis: { type: "value", min: 0, max: 1000 },
         series: [
@@ -57,7 +72,8 @@ export default class extends Controller {
             name: "Health",
             type: "line",
             smooth: true,
-            data: points
+            data: points,
+            showSymbol: this.showSymbolValue || false
           }
         ]
       })

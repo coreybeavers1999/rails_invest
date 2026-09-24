@@ -1,5 +1,5 @@
 class Stocks::Economy < ApplicationRecord
-  SEED = 1838284
+  SEED = 1838
 
   validates :health, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000 }
 

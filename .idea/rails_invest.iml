@@ -66,6 +66,8 @@
     <orderEntry type="library" scope="PROVIDED" name="erb (v6.0.7, asdf: 3.3.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.13.1, asdf: 3.3.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="et-orbi (v1.4.2, asdf: 3.3.5) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="factory_bot (v6.5.4, asdf: 3.3.5) [gem]" level="application" />
+    <orderEntry type="library" scope="TEST" name="factory_bot_rails (v6.5.0, asdf: 3.3.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="fugit (v1.13.0, asdf: 3.3.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v1.4.0, asdf: 3.3.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="htmlbeautifier (v1.4.3, asdf: 3.3.5) [gem]" level="application" />
