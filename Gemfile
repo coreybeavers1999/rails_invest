@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.5"
+gem "rails", "~> 8.1.3"
 # Rails 8.0.5.1 passes JSON options as keywords; json 3.0.1 no longer
 # accepts that call shape. Keep the compatible 2.x API until Rails is upgraded.
 gem "json", "~> 2.10"
