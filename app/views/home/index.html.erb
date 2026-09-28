@@ -1,13 +1,11 @@
 <h1>Home#index</h1>
-<%= @message %>
 
-<!-- 7 Days -->
-<% history_url = economy_history_stocks_path(from: 6.days.ago.to_date.iso8601, to: Date.current.iso8601) %>
+<!-- Economy 90 Days -->
+<% history_url = economy_history_stocks_path(from: 1.years.ago.to_date.iso8601, to: Date.current.iso8601) %>
 <div
   data-controller="chart"
   data-chart-url-value="<%= history_url %>"
-  data-chart-title-value="Economy History - Last 7 Days"
-  data-chart-show-symbol-value="true"
+  data-chart-title-value="Economy History - Last 364 Days"
 >
   <!-- Chart Element Container -->
   <div data-chart-target="chart" style="width: 100%; height: 400px;"></div>
@@ -16,16 +14,30 @@
   <div data-chart-target="status">Loading...</div>
 </div>
 
-<!-- Year -->
-<% history_url = economy_history_stocks_path(from: 364.days.ago.to_date.iso8601, to: Date.current.iso8601) %>
-<div
-  data-controller="chart"
-  data-chart-url-value="<%= history_url %>"
-  data-chart-title-value="Economy History - Last 1 Year"
->
-  <!-- Chart Element Container -->
-  <div data-chart-target="chart" style="width: 100%; height: 400px;"></div>
+<!-- All Industries -->
+  <div
+    data-controller="chart-multi"
+    data-chart-multi-title-value="<%= @all_industries_chart[:title] %>"
+    data-chart-multi-series-value="<%= @all_industries_chart[:series].to_json %>"
+  >
+    <!-- Chart Element Container -->
+    <div data-chart-multi-target="chart" style="width: 100%; height: 400px;"></div>
 
-  <!-- Status Element -->
-  <div data-chart-target="status">Loading...</div>
-</div>
+    <!-- Status Element -->
+    <div data-chart-multi-target="status">Loading...</div>
+  </div>
+
+<!-- Industry History -->
+<% @industries.each do |industry| %>
+  <div
+    data-controller="chart-multi"
+    data-chart-multi-title-value="<%= industry[:title] %>"
+    data-chart-multi-series-value="<%= industry[:series].to_json %>"
+  >
+    <!-- Chart Element Container -->
+    <div data-chart-multi-target="chart" style="width: 100%; height: 400px;"></div>
+
+    <!-- Status Element -->
+    <div data-chart-multi-target="status">Loading...</div>
+  </div>
+<% end %>

@@ -46,7 +46,6 @@ export default class extends Controller {
 
       // Everything went well, let's build the chart
       const points = await res.json()
-      console.log(points)
 
       // Initialize chart with options
       this.chart.setOption({
@@ -54,15 +53,18 @@ export default class extends Controller {
         tooltip: {
           trigger: "axis",
           formatter: (params) => {
-            const [isoDate, health] = params[0].value
             const date = new Intl.DateTimeFormat("en-US", {
-              month: "long",
+              month: "short",
               day: "numeric",
               year: "numeric",
-              timeZone: "UTC"
-            }).format(new Date(isoDate))
+            }).format(new Date(params[0].axisValue))
 
-            return `${date}<br/>Health: ${health}`
+            const points = params.map(({ marker, seriesName, value }) => {
+              const yValue = Array.isArray(value) ? value[1] : value
+              return `${marker}${seriesName}: <b>${yValue}</b>`
+            })
+
+            return [date, ...points].join("<br/>")
           }
         },
         xAxis: { type: "time" },
@@ -72,7 +74,7 @@ export default class extends Controller {
             name: "Health",
             type: "line",
             smooth: true,
-            data: points,
+            data: points?.history || [],
             showSymbol: this.showSymbolValue || false
           }
         ]

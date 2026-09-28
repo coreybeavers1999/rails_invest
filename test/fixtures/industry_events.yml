@@ -2,10 +2,10 @@
 
 one:
   industry: one
-  direction_delta: 1.5
+  new_direction: 1.5
   public: false
 
 two:
   industry: two
-  direction_delta: 1.5
+  new_direction: 1.5
   public: false

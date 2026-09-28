@@ -8,13 +8,17 @@ Rails.application.routes.draw do
 
     # Stocks
     resources :stocks do
-      collection do
-        get :economy_history
-      end
+      get :economy_history, on: :collection
+      get :industry_history, on: :member
 
-      member do
-
-      end
+      # Other syntax option
+      # collection do
+      #   get :economy_history
+      # end
+      #
+      # member do
+      #   get :industry_history
+      # end
     end
   end
 

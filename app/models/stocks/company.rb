@@ -38,10 +38,6 @@ class Stocks::Company < ApplicationRecord
 
   def create_event; end
 
-  def age
-    ((Date.current - created_at.to_date) + 1).to_i
-  end
-
   private
 
   def initialize_values

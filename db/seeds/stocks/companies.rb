@@ -1,5 +1,10 @@
 # Data
-industry_list = %w[ Technology Finance Real-estate Hospitality ]
+industry_list = [
+  { name: "Technology", event_chance: 7 },
+  { name: "Finance", event_chance: 3 },
+  { name: "Real-estate", event_chance: 1 },
+  { name: "Hospitality", event_chance: 5 }
+]
 ceo_list = [
   { name: "Megamind", skill: 100, controversial: 10 },
   { name: "Bonehead McGee", skill: 1, controversial: 100 },
@@ -28,7 +33,12 @@ company_list = {
 }
 
 # Generate industries
-industry_list.each { |industry| Stocks::Industry.create_or_find_by(name: industry) }
+industry_start_date = Date.current - 3.years - 1.day
+industry_list.each do |industry|
+  Stocks::Industry
+    .create_with(created_at: industry_start_date, event_chance: industry[:event_chance])
+    .find_or_create_by!(name: industry[:name])
+end
 
 # List of CEOs
 ceo_list.each do |ceo|
@@ -48,6 +58,6 @@ company_list.entries.each do |industry, companies|
 
     Stocks::Company
       .create_with(**company, industry: industry, ceo: ceo)
-      .find_or_create_by(name: company[:name])
+      .find_or_create_by!(name: company[:name])
   end
 end

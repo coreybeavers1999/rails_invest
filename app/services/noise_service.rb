@@ -22,6 +22,18 @@ class NoiseService
     }
   }.freeze
 
+  # Returns a single float value at the given date
+  # Automatically converts the date to a step and calls step_value
+  def self.date_value(seed, date, noise_params: NOISE_PARAMS[:economy])
+    step_value(seed, self.date_to_step(date), noise_params: noise_params)
+  end
+
+  # Returns a flat array of noise values between the given dates
+  # Automatically converts the dates to steps and calls step_range
+  def self.date_range_value(seed, date_start, date_end, noise_params: NOISE_PARAMS[:economy])
+    step_range(seed, self.date_to_step(date_start), self.date_to_step(date_end), noise_params: noise_params)
+  end
+
   # Returns a single float value at the given step
   # @param noise_params [Hash] noise parameters. Collected from NOISE_PARAMS except for companies
   # @return [Float] normalized between 0.0 - 1.0
@@ -32,7 +44,7 @@ class NoiseService
     generator: nil
   )
     # Create noise object unless one is provided.
-    # I can't use the generator.chunk method because of rounding point errors in the C code.
+    # I can't use the generator.chunk method because of rounding point errors in the C source code.
     # To improve performance, I can reuse a single instance of Perlin::Generator.
     generator = Perlin::Generator.new(seed, noise_params[:persistence], noise_params[:octaves]) unless generator
     normalize(generator[step * noise_params[:scale], LOCKED_Y])
@@ -49,12 +61,16 @@ class NoiseService
       self.step_value(seed, step, noise_params: noise_params, generator: generator)
     end
 
-    # This is the gem's recommended appoach to gathering chunks of data.
+    # This is the gem's recommended approach to gathering chunks of data.
     # Unfortunately, the gem's chunk method has rounding point errors in the C code.
     # gen = Perlin::Generator.new(seed, noise_params[:persistence], noise_params[:octaves])
     # width = step_end - step_start + 1
     # noise = gen.chunk(step_start * noise_params[:scale], LOCKED_Y, width, 1, noise_params[:scale])
     # noise.flatten.map { |i| normalize(i) }
+  end
+
+  def self.date_to_step(date)
+    (date - Date.new(2000)).to_i
   end
 
   private

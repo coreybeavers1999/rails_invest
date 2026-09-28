@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_19_002056) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_26_193220) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -96,11 +96,24 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_19_002056) do
 
   create_table "stocks_industry_events", force: :cascade do |t|
     t.bigint "industry_id", null: false
-    t.integer "direction_delta", null: false, comment: "Delta added to current industry direction"
+    t.integer "new_direction", null: false, comment: "What is the new direction of the industry?"
     t.boolean "public", default: false, null: false, comment: "Is a news article created for this event?"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["industry_id"], name: "index_stocks_industry_events_on_industry_id"
+  end
+
+  create_table "stocks_industry_snapshots", force: :cascade do |t|
+    t.bigint "industry_id", null: false
+    t.date "recorded_on", null: false, comment: "The date the snapshot was recorded"
+    t.integer "health", null: false, comment: "The health of the industry on the given date"
+    t.integer "direction", null: false, comment: "The direction of the industry at the given date. Only updated via event"
+    t.integer "delta", null: false, comment: "The change in health from the previous snapshot"
+    t.bigint "industry_event_id", comment: "If an industry event was created on this day, a reference to it will be stored here"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["industry_event_id"], name: "index_stocks_industry_snapshots_on_industry_event_id", unique: true
+    t.index ["industry_id", "recorded_on"], name: "index_industry_snapshots_on_industry_id_and_recorded_on", unique: true
   end
 
   create_table "stocks_share_purchases", force: :cascade do |t|
@@ -132,6 +145,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_19_002056) do
   add_foreign_key "stocks_companies", "stocks_industries", column: "industry_id"
   add_foreign_key "stocks_company_events", "stocks_companies", column: "company_id"
   add_foreign_key "stocks_industry_events", "stocks_industries", column: "industry_id"
+  add_foreign_key "stocks_industry_snapshots", "stocks_industries", column: "industry_id"
+  add_foreign_key "stocks_industry_snapshots", "stocks_industry_events", column: "industry_event_id"
   add_foreign_key "stocks_share_purchases", "stocks_companies", column: "company_id"
   add_foreign_key "stocks_share_purchases", "users"
 end
